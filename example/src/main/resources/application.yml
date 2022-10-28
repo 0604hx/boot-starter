@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: EXAMPLE（演示程序）
+  profiles:
+    active: dev
+    include: basic
+  datasource:
+    name: app
+    url: jdbc:mysql://127.0.0.1:33006/kaoping?allowMultiQueries=true&serverTimezone=UTC
+    username: root
+    password: rootroot
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+nerve:
+  auth:
+    enable: false
+    popularUrls:
+      - /time

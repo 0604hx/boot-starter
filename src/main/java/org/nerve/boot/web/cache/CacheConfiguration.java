@@ -1,0 +1,62 @@
+package org.nerve.boot.web.cache;
+
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import javax.annotation.Resource;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.PostConstruct;
+
+import static org.nerve.boot.Const.EMPTY;
+
+@Configuration
+@ConditionalOnProperty(name ="nerve.cache.enable", matchIfMissing = true, havingValue = "true")
+@EnableConfigurationProperties(CacheProperties.class)
+public class CacheConfiguration extends CachingConfigurerSupport {
+
+	private Logger logger = LoggerFactory.getLogger(getClass());
+
+	@Resource
+    CacheConfig cacheConfig;
+	@Resource
+	CacheProperties cacheProperties;
+
+	@PostConstruct
+	protected void init(){
+		logger.info("[Cache] 初始化 CacheConfiguration ( set cib.cache.enable=false if you want to disable customed cache!)");
+		if(logger.isDebugEnabled())
+			logger.debug("[Cache] {}", cacheConfig.caches);
+	}
+
+	@Bean
+	@Override
+	public CacheManager cacheManager() {
+		CaffeineCacheManager cacheManager = new CaffeineCacheManager();
+		if (!CollectionUtils.isEmpty(cacheProperties.getCacheNames())) {
+			cacheManager.setCacheNames(cacheProperties.getCacheNames());
+		}
+
+		cacheConfig.caches.forEach((name, spec) -> {
+			boolean hasSpec = StringUtils.hasText(spec);
+			if(!hasSpec)
+				logger.warn("[Cache] 检测到 name={} 的cache没有定义 spec 属性...",name);
+
+			Cache cache = Caffeine.from(hasSpec?spec: EMPTY).build();
+			cacheManager.registerCustomCache(name, cache);
+			if(logger.isDebugEnabled()) logger.debug("[Cache] added cache name={} {}", name, cache);
+		});
+
+		return cacheManager;
+	}
+}

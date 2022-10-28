@@ -1,0 +1,19 @@
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Maven
+log/
+logs/
+target/
+/target/
+
+/dump/
+*.log
+
+# 所有以 ~ 开头的文件都不处理
+~*
+.~*
