@@ -6,7 +6,7 @@
 
     <groupId>com.github.0604hx</groupId>
     <artifactId>boot-starter</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
 
     <!-- Inherit defaults from Spring Boot -->
     <parent>
@@ -31,6 +31,7 @@
         <commons.io>2.11.0</commons.io>
         <commons.beanutil>1.9.4</commons.beanutil>
         <commons.codec>1.15</commons.codec>
+        <jjwt.version>0.11.5</jjwt.version>
     </properties>
 
     <dependencies>
@@ -92,7 +93,25 @@
 <!--            <artifactId>mysql-connector-j</artifactId>-->
 <!--        </dependency>-->
 
-
+        <!--使用 JWT 进行鉴权-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>

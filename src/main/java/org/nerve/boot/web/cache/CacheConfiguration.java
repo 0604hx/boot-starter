@@ -2,6 +2,8 @@ package org.nerve.boot.web.cache;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.CaffeineSpec;
+import org.nerve.boot.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.annotation.Resource;
@@ -56,6 +58,13 @@ public class CacheConfiguration extends CachingConfigurerSupport {
 			cacheManager.registerCustomCache(name, cache);
 			if(logger.isDebugEnabled()) logger.debug("[Cache] added cache name={} {}", name, cache);
 		});
+
+		// 设置默认的缓存规则
+		String spec = cacheProperties.getCaffeine().getSpec();
+		if(StringUtils.hasText(spec)){
+			cacheManager.setCaffeineSpec(CaffeineSpec.parse(spec));
+			logger.info("[Cache] 默认缓存配置 = {}", spec);
+		}
 
 		return cacheManager;
 	}

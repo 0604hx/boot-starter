@@ -1,5 +1,4 @@
 server:
-  port: 7070
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
@@ -19,11 +18,6 @@ spring:
   cache:
     caffeine:
       spec: maximumSize=100,expireAfterWrite=2h
-  data:
-    mongodb:
-      host: localhost
-      port: 27027
-      auto-index-creation: true
   servlet:
     multipart:
       max-file-size: 256MB
