@@ -13,7 +13,7 @@ import org.nerve.boot.domain.ID;
 import org.nerve.boot.module.operation.Operation;
 import org.nerve.boot.module.operation.OperationService;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 public abstract class BasicController extends BaseController {
 

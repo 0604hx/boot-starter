@@ -74,3 +74,8 @@ SpringBoot  版本  ：2.7.5
 ```
 
 # 🏅 关于 / About
+
+## 版本说明
+
+* `1.x` 开始仅支持 spring boot 3（需要 JDK 17+）
+* `0.x` 为 spring boot 2

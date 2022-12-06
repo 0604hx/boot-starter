@@ -55,7 +55,7 @@
             </encoder>
         </appender>
 
-        <logger name="com.nncib" level="INFO"/>
+        <logger name="com.nerve" level="INFO"/>
         <logger name="org.springframework.data.mongodb.core.MongoTemplate" level="INFO"/>
 
         <root level="INFO">
@@ -67,7 +67,7 @@
 
     <!--开发环境下值显示到控制台-->
     <springProfile name="dev,test">
-        <logger name="com.nncib" level="DEBUG"/>
+        <logger name="com.nerve" level="DEBUG"/>
         <logger name="org.springframework.data.mongodb.core.MongoTemplate" level="DEBUG"/>
 
         <root level="INFO">

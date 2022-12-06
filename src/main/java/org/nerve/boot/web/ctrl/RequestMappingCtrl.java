@@ -1,6 +1,6 @@
 package org.nerve.boot.web.ctrl;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.nerve.boot.Result;
 import org.nerve.boot.web.listener.RequestMappingListener;
@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.List;
 
 @RestController

@@ -19,7 +19,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -185,7 +185,7 @@ public class BackupService extends BaseService<BackupMapper, Backup> {
         int count = 0;
 
         try(BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)){
-            String tableName = "";
+            String tableName;
             TableName table = (TableName) clazz.getAnnotation(TableName.class);
             if (table!=null){
                 tableName = table.value();

@@ -5,7 +5,7 @@ import org.nerve.boot.util.ClassNameUtil;
 import org.nerve.boot.web.auth.AuthConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.method.HandlerMethod;
