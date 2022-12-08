@@ -71,8 +71,7 @@ public class QueryHelper<T> {
                 }
             });
         }
-        System.out.println(q.getSqlSelect());
-        System.out.println(q.getTargetSql());
+
         return q;
     }
 

@@ -22,7 +22,7 @@ public abstract class BasicController extends BaseController {
 
     protected void opLog(String msg, ID<?> bean, int opType) {
         AuthUser user = authHolder.get();
-        Operation op = new Operation(user, bean, opType, String.format("%s %s", user.getShowName(), msg));
+        Operation op = new Operation(user, bean, opType, String.format("%s %s", user!=null?user.getShowName():"", msg));
         opService.saveAsync(op);
         logger.info(op.getSummary());
     }
