@@ -22,6 +22,7 @@ public class AuthConfig {
     private boolean attach = true;                              //是否公开静态资源访问
     private String attachDir = "attach";
     private Map<String,String> ctrlNames = new HashMap<>();     //控制器名称
+    private String tokenName    = "UA";
 
     public boolean isIpInWhite(String ip){
         return whiteIps.contains(ip);
@@ -125,5 +126,13 @@ public class AuthConfig {
     public AuthConfig setWhiteIds(List<String> whiteIds) {
         this.whiteIds = whiteIds;
         return this;
+    }
+
+    public String getTokenName() {
+        return tokenName;
+    }
+
+    public void setTokenName(String tokenName) {
+        this.tokenName = tokenName;
     }
 }

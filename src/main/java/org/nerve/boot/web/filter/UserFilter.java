@@ -5,10 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.nerve.boot.domain.AuthUser;
 import org.nerve.boot.domain.UserAuthRecognizer;
 import org.nerve.boot.web.WebUtil;
-import org.nerve.boot.web.auth.AuthConfig;
-import org.nerve.boot.web.auth.AuthException;
-import org.nerve.boot.web.auth.AuthHolder;
-import org.nerve.boot.web.auth.UserLoader;
+import org.nerve.boot.web.auth.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import jakarta.annotation.Resource;
@@ -46,7 +43,8 @@ public class UserFilter implements AsyncHandlerInterceptor {
 
     private AntPathMatcher attachMatcher = new AntPathMatcher();
 
-    private UserLoader userLoader = new UserLoader();
+    @Resource
+    private UserLoader userLoader = new UserLoaderImpl();
 
     private boolean isSkip(final HttpServletRequest request){
         String path = request.getServletPath();
@@ -103,7 +101,7 @@ public class UserFilter implements AsyncHandlerInterceptor {
             return true;
         }
 
-        final AuthUser user = userLoader.loadFrom(request.getHeader(UserLoader.UA));
+        final AuthUser user = userLoader.from(request.getHeader(config.getTokenName()));
         Assert.notNull(user, "未登录");
 
         //验证 IP
