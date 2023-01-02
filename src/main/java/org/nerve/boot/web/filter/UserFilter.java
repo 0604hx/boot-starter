@@ -9,6 +9,7 @@ import org.nerve.boot.web.auth.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpMethod;
@@ -43,7 +44,7 @@ public class UserFilter implements AsyncHandlerInterceptor {
 
     private AntPathMatcher attachMatcher = new AntPathMatcher();
 
-    @Resource
+    @Autowired(required = false)
     private UserLoader userLoader = new UserLoaderImpl();
 
     private boolean isSkip(final HttpServletRequest request){
@@ -102,7 +103,7 @@ public class UserFilter implements AsyncHandlerInterceptor {
         }
 
         final AuthUser user = userLoader.from(request.getHeader(config.getTokenName()));
-        Assert.notNull(user, "未登录");
+        Assert.notNull(user, "NOT LOGIN");
 
         //验证 IP
         if(!StringUtils.equals(ip, user.getIp())){

@@ -16,7 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan({"org.nerve", "com.github0604hx"})
-@MapperScan({"org.nerve.boot.module", "org.nerve.boot.web.auth"})
+@MapperScan({"org.nerve.boot.module"})
 public class ExampleApp {
     public static void main(String[] args) {
         SpringApplication.run(ExampleApp.class, args);

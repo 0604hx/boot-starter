@@ -1,12 +1,15 @@
 package org.nerve.boot.web.auth;
+import jakarta.annotation.PostConstruct;
 import org.nerve.boot.domain.AuthUser;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
+import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 public class UserLoaderImpl implements UserLoader {
-
     @Override
     public AuthUser from(String ua) throws Exception {
         if(ua == null)
