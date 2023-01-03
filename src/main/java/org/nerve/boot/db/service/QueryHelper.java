@@ -34,9 +34,9 @@ public class QueryHelper<T> {
                         if(t.length==2) q.like(t[1].replaceAll(AT,UNDER), v);
                         //多个字段 OR 模糊查询
                         else {
-                            q.or(qw-> {
+                            q.and(qw-> {
                                 for (int i = 1; i < t.length; i++) {
-                                    qw.like(t[i].replaceAll(AT, UNDER), v);
+                                    qw.or().like(t[i].replaceAll(AT, UNDER), v);
                                 }
                             });
                         }
