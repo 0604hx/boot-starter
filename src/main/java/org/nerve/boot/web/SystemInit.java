@@ -53,14 +53,24 @@ public class SystemInit {
         try{
             String jsonStr = FileLoader.loadContent("settings.json");
             List<Setting> settings = JSON.parseArray(jsonStr, Setting.class);
+
+            if(settings.isEmpty()) return;
+
             logger.info("[初始化-配置项] 读取到 {} 个配置信息", settings.size());
+
+            List<Object> existIds = settingService.listObjs();
+//            List<String> existIds = settingService
+//                    .list(new QueryWrapper<Setting>().select(Fields.ID.value()))
+//                    .stream()
+//                    .map(s-> s.id())
+//                    .toList();
 
             for (int i = 0; i < settings.size(); i++) {
                 Setting s = settings.get(i);
                 if(s.getSort() == -1)
                     s.setSort(i);
 
-                if(!settingService.existsByUUID(s.id())){
+                if(!existIds.contains(s.id())){
                     logger.info("[初始化-配置项] 检测到 {} 不存在，即将保存该项...", s.getId());
 
                     if(StringUtils.isEmpty(s.getContent()))
