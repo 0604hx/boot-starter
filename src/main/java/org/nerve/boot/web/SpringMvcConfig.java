@@ -32,8 +32,9 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         if(interceptorList!=null){
             for(HandlerInterceptor interceptor:interceptorList){
-                registry.addInterceptor(interceptor);
-                if(logger.isDebugEnabled()) logger.debug("[INTERCEPTOR] 添加拦截器 {}", interceptor);
+                registry.addInterceptor(interceptor).excludePathPatterns(authConfig.getPopularUrls());
+                if(logger.isDebugEnabled())
+                    logger.debug("[INTERCEPTOR] 添加拦截器 {} EXCLUDES={}", interceptor, authConfig.getPopularUrls());
             }
         }
     }

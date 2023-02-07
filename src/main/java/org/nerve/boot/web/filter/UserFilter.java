@@ -87,7 +87,7 @@ public class UserFilter implements AsyncHandlerInterceptor {
 
         if(webDebug)    showRequestInfo(request);
 
-        if(config.isPopular(uri) || isSkip(request)){
+        if(isSkip(request)){
             if(logger.isDebugEnabled()) logger.debug("访问公开路径 {}", uri);
 
             return true;
