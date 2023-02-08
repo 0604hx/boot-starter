@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,14 +29,37 @@ public class ExceptionAdvice {
     @ResponseBody
     @ExceptionHandler
     public Result handler(HttpServletRequest request, Exception e){
-        logger.error("[异常]: "+ExceptionUtils.getMessage(e), e);
+
 
 //        val trace           = Trace.of(request, holder.get())
 //        trace.path          = request.servletPath
 //        trace.ok            = false
 //        trace.exception     = ExceptionUtils.getMessage(e)
 //        traceService.log(trace)
+        if(e instanceof MethodArgumentNotValidException){
+            MethodArgumentNotValidException me = (MethodArgumentNotValidException) e;
+            /*
+            ObjectError 结构如下：
+            {
+                "arguments": [{
+                    "code": "aid",
+                    "codes": ["dataCreateModel.aid", "aid"],
+                    "defaultMessage": "aid"
+                }],
+                "bindingFailure": false,
+                "code": "NotBlank",
+                "codes": ["NotBlank.dataCreateModel.aid", "NotBlank.aid", "NotBlank.java.lang.String", "NotBlank"],
+                "defaultMessage": "aid 未填写",
+                "field": "aid",
+                "objectName": "dataCreateModel",
+                "rejectedValue": ""
+            }
+             */
+            ObjectError error = me.getAllErrors().get(0);
+            return Result.fail("[参数检验失败] "+error.getDefaultMessage());
+        }
 
+        logger.error("[异常]: "+ExceptionUtils.getMessage(e), e);
         holder.clean();
         return Result.fail(e);
     }
