@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.nerve.boot.Const.NEW_LINE;
 
 
@@ -36,7 +37,7 @@ public class FileLoader {
 
     public static String loadContent(String name) throws IOException {
         StringBuilder sb = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(FileLoader.load(name)))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(FileLoader.load(name), UTF_8))) {
             String str = null;
             while ((str = reader.readLine()) != null) {
                 sb.append(str);
@@ -48,7 +49,7 @@ public class FileLoader {
 
     public static List<String> loadLines(String name) throws IOException {
         List<String> lines = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(FileLoader.load(name)))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(FileLoader.load(name), UTF_8))) {
             String str = null;
             while ((str = reader.readLine()) != null) {
                 lines.add(str);

@@ -32,14 +32,16 @@ public class MD5Util {
      * @throws IOException  异常
      */
     public static String encode(File file) throws IOException {
-        InputStream fis;
-        fis = new FileInputStream(file);
+        return encode(new FileInputStream(file));
+    }
+
+    public static String encode(InputStream is) throws IOException {
         byte[] buffer = new byte[1024];
         int numRead = 0;
-        while ((numRead = fis.read(buffer)) > 0) {
+        while ((numRead = is.read(buffer)) > 0) {
             messagedigest.update(buffer, 0, numRead);
         }
-        fis.close();
+        is.close();
         return bufferToHex(messagedigest.digest());
     }
 
