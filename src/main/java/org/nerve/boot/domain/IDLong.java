@@ -1,7 +1,11 @@
 package org.nerve.boot.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 abstract public class IDLong implements ID<Long> {
 
+    @TableId(type = IdType.AUTO)
     protected long id;
 
     @Override
