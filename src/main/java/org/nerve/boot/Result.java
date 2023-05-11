@@ -7,7 +7,7 @@ public class Result {
     /**
      * 总记录数
      */
-    private long total;
+    private Long total;
     /**
      * 查询结果
      */
@@ -109,7 +109,7 @@ public class Result {
         return this;
     }
 
-    public long getTotal() {
+    public Long getTotal() {
         return total;
     }
 

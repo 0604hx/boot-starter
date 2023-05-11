@@ -2,6 +2,7 @@ package org.nerve.boot.web.filter;
 
 import com.alibaba.fastjson2.JSON;
 import org.apache.commons.lang3.StringUtils;
+import org.nerve.boot.Result;
 import org.nerve.boot.domain.AuthUser;
 import org.nerve.boot.domain.UserAuthRecognizer;
 import org.nerve.boot.web.WebUtil;
@@ -12,6 +13,7 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -103,7 +105,13 @@ public class UserFilter implements AsyncHandlerInterceptor {
         }
 
         final AuthUser user = userLoader.from(request.getHeader(config.getTokenName()));
-        Assert.notNull(user, "NOT LOGIN");
+//        Assert.notNull(user, "NOT LOGIN");
+        if(user == null){
+            logger.info("[NOT LOGIN] {} 匿名请求 {}", ip, uri);
+            response.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+            response.getWriter().write(JSON.toJSONString(Result.fail("NOT LOGIN")));
+            return false;
+        }
 
         //验证 IP
         if(!StringUtils.equals(ip, user.getIp())){
