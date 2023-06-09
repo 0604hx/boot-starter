@@ -22,7 +22,7 @@
 
 ```xml
 <dependency>
-    <groupId>com.github.0604hx</groupId>
+    <groupId>org.nerve</groupId>
     <artifactId>boot-starter</artifactId>
     <version>${version}</version>
 </dependency>

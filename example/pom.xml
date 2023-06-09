@@ -4,20 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.0604hx</groupId>
+    <parent>
+        <groupId>org.nerve</groupId>
+        <artifactId>boot-starter</artifactId>
+        <version>1.0.1</version>
+    </parent>
     <artifactId>example</artifactId>
     <version>1.0</version>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
-            <groupId>com.github.0604hx</groupId>
-            <artifactId>boot-starter</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.nerve</groupId>
+            <artifactId>boot</artifactId>
         </dependency>
     </dependencies>
 </project>
