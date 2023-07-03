@@ -15,6 +15,7 @@ import org.nerve.boot.web.auth.Role;
 import org.nerve.boot.web.auth.RoleLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +37,8 @@ public class SystemInit {
     RoleMapper roleMapper;
     @Resource
     RoleLinkMapper roleLinkMapper;
+    @Autowired(required = false)
+    List<InitWorker> workers;
 
     @EventListener(ApplicationStartedEvent.class)
     public void initOnStart(){
@@ -52,6 +55,13 @@ public class SystemInit {
         initSetting();
         initRole();
         initRoleLink();
+
+        if(workers != null){
+            for (InitWorker worker : workers) {
+                String msg = worker.get();
+                logger.info("[初始化-{}] {}", worker.getClass().getSimpleName(), msg);
+            }
+        }
 
         if(logger.isDebugEnabled()) logger.debug("[初始化] 作业完成，耗时 {} 秒 ^_^", timing.toSecondStr());
     }
@@ -137,11 +147,6 @@ public class SystemInit {
             logger.info("[初始化-配置项] 读取到 {} 个配置信息", settings.size());
 
             List<Object> existIds = settingService.listObjs();
-//            List<String> existIds = settingService
-//                    .list(new QueryWrapper<Setting>().select(Fields.ID.value()))
-//                    .stream()
-//                    .map(s-> s.id())
-//                    .toList();
 
             for (int i = 0; i < settings.size(); i++) {
                 Setting s = settings.get(i);

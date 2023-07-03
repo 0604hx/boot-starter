@@ -13,11 +13,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1</version>
     </parent>
 
     <modules>
         <module>boot</module>
+        <module>examples</module>
     </modules>
 
     <properties>
@@ -26,7 +27,7 @@
         <maven.test.skip>true</maven.test.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <spring.boot.version>3.1.0</spring.boot.version>
+        <spring.boot.version>3.1.1</spring.boot.version>
         <kotlin.version>1.8.20</kotlin.version>
     </properties>
 

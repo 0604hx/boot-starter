@@ -1,4 +1,4 @@
-package com.github0604hx;
+package org.nerve.simple;
 
 /*
  * @project nerve-boot
@@ -15,10 +15,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"org.nerve", "com.github0604hx"})
+@ComponentScan({"org.nerve"})
 @MapperScan({"org.nerve.boot.module"})
-public class ExampleApp {
+public class SimpleApp {
     public static void main(String[] args) {
-        SpringApplication.run(ExampleApp.class, args);
+        SpringApplication.run(SimpleApp.class, args);
     }
 }

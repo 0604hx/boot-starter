@@ -1,0 +1,18 @@
+server:
+  port: 6060
+
+spring:
+  cloud:
+    gateway:
+      # 运行 CORS（全部运行）
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: meta
+          uri: http://localhost:10086
+          predicates:
+            - Path=/app-meta/**

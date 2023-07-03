@@ -1,4 +1,4 @@
-package com.github0604hx;
+package org.nerve.simple;
 /*
  * @project boot-starter
  * @file    com.github.demo.IndexController

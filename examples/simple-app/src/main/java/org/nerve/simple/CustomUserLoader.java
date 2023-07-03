@@ -1,4 +1,4 @@
-package com.github0604hx;
+package org.nerve.simple;
 
 import org.nerve.boot.domain.AuthUser;
 import org.nerve.boot.web.auth.UserLoader;
